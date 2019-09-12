@@ -1,0 +1,73 @@
+{
+  "metadata" : {
+    "name" : "test creation class",
+    "user_save_timestamp" : "1970-01-01T01:00:00.000Z",
+    "auto_save_timestamp" : "1970-01-01T01:00:00.000Z",
+    "language_info" : {
+      "name" : "scala",
+      "file_extension" : "scala",
+      "codemirror_mode" : "text/x-scala"
+    },
+    "trusted" : true,
+    "customLocalRepo" : null,
+    "customRepos" : null,
+    "customDeps" : null,
+    "customImports" : null,
+    "customArgs" : null,
+    "customSparkConf" : null
+  },
+  "cells" : [ {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false,
+      "id" : "632B1031EB2D4F7C8252130ECCB47ABB"
+    },
+    "cell_type" : "code",
+    "source" : "class Cat(private val name : String) {\n\tprivate var numberOfLives : Int = 7\n\t\n\tdef getName() = name\n\t\n\tdef kill() {\n\t\tif(numberOfLives >= 0) numberOfLives -= 1\n\t}\n\t\n\tdef isDead() = numberOfLives == 0\n}",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "defined class Cat\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : ""
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 1
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false,
+      "id" : "9710DCB4197241D5BEE07F23CBAA797E"
+    },
+    "cell_type" : "code",
+    "source" : "var chat = new Cat(\"luc\")\nchat.getName()\nchat.kill()",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "chat: Cat = $iwC$$iwC$Cat@3232f51e\nres5: String = luc\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : "luc"
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 3
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : true,
+      "id" : "D264329EFC73413F8BD53E67EFF56618"
+    },
+    "cell_type" : "code",
+    "source" : "",
+    "outputs" : [ ]
+  } ],
+  "nbformat" : 4
+}

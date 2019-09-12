@@ -1,0 +1,63 @@
+Sub MiseAJour()
+ 
+        Dim fichier As String
+        Dim monfichier As String
+        Dim data(50) As String
+        Dim index(50) As String
+        Dim i, j, k As Integer
+
+        'cases = Array("D187", "F187", "G187", "H187", "I187", "D168", "D173", "E173", "F173", "G173", "H173", "I173", "J173", "D178", "E178", "F178", "G178", "D59", "D64")
+
+        monfichier1 = "G:\04-Opérations _&_Etudes\04-MOA\300_GA\99.Transverse\Paramétrage_GA\Fiche de paramètrage GA_maj20170802\test\Test.csv"
+
+        Workbooks.Open Filename:=monfichier1
+        
+
+        Application.DisplayAlerts = False
+        
+        Set sh = ThisWorkbook.Worksheets("Test")
+        Sheets("Test").Select
+        
+        LastColumn = sh.Cells(7, sh.Columns.Count).End(xlToLeft).Column
+        LastRow = sh.Cells(sh.Rows.Count, "A").End(xlUp).Row
+
+
+        For n = 1 To LastColumn
+            index(n) = Cells(1, n)
+        Next n
+     
+        For i = 3 To LastRow
+        
+        For j = 1 To LastColumn
+            data(j) = Cells(i, j)
+        Next j
+
+        fichier = data(1)
+        monfichier2 = "G:\04-Opérations _&_Etudes\04-MOA\300_GA\99.Transverse\Paramétrage_GA\Fiche de paramètrage GA_maj20170802\test\CBP - Fiche de Paramétrage_CBPEC - " & fichier & ".xlsm"
+
+        Workbooks.Open Filename:=monfichier2
+        Sheets("Param_Général").Select
+
+       
+        For k = 2 To LastColumn
+        Debug.Print index(k)
+        Sheets("Param_Général").Range(index(k)).Value = data(k)
+        
+        Next k
+        
+        
+        Sheets("Param_Dentaire").Range(index(35)).Value = data(35)
+        Sheets("Param_Audioprothèse").Range(index(36)).Value = data(36)
+        Sheets("Param_Optique").Range(index(37)).Value = data(37)
+        Sheets("Param_Dentaire").Range(index(38)).Value = data(38)
+        Sheets("Param_Audioprothèse").Range(index(39)).Value = data(39)
+  
+
+        ActiveWorkbook.Save
+        ActiveWorkbook.Close
+        
+        Next i
+End Sub
+
+
+

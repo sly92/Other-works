@@ -1,0 +1,72 @@
+from SPARQLWrapper import SPARQLWrapper, JSON
+
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+sparql.setQuery("""
+PREFIX p: <http://www.wikidata.org/prop/> 
+PREFIX wd: <http://www.wikidata.org/entity/> 
+prefix pq: <http://www.wikidata.org/prop/qualifier/>
+prefix ps: <http://www.wikidata.org/prop/statement/>
+
+select (YEAR(?date) as ?year) ?population
+where {
+       wd:Q61816 p:P1082 ?statement .
+        ?statement ps:P1082 ?population ;
+                    pq:P585 ?date .           
+      } 
+ORDER BY ?year""")
+sparql.setReturnFormat(JSON)
+results = sparql.query().convert()
+
+
+tabPopu = []
+tabYear = []
+
+for result in results["results"]["bindings"]:
+    tabPopu.append(int(result["population"]["value"]))
+    tabYear.append(int(result["year"]["value"]))
+    
+sparql = SPARQLWrapper("http://localhost:8890/sparql/")
+sparql.setQuery("""
+PREFIX p: <http://www.wikidata.org/prop/> 
+PREFIX wd: <http://www.wikidata.org/entity/> 
+prefix pq: <http://www.wikidata.org/prop/qualifier/>
+prefix ps: <http://www.wikidata.org/prop/statement/>
+
+select (?date as ?year) ?population
+where {
+ GRAPH <http://example.com/results> {
+       wd:Q61816 p:P1082 ?statement .
+        ?statement ps:P1082 ?population ;
+                    pq:P585 ?date . 
+                    }
+      } 
+ORDER BY ?year""")
+sparql.setReturnFormat(JSON)
+results = sparql.query().convert()
+
+tabYearFutur = []
+tabPopuFutur = []
+    
+for result in results["results"]["bindings"]:
+    tabPopuFutur.append(int(result["population"]["value"]))
+    tabYearFutur.append(int(result["year"]["value"]))
+    
+fig, ax = plt.subplots()
+ax.plot(tabYear, tabPopu)
+
+ax.plot( tabYearFutur, tabPopuFutur, marker='', color='red', linewidth=2, linestyle='dashed', label="toto")
+
+
+ax.set(xlabel='Year', ylabel='Population',
+       title='Example')
+ax.grid()
+
+fig.savefig("test.png")
+plt.show()
+plt.clf()
+plt.cla()
+plt.close()

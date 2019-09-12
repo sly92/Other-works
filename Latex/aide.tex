@@ -1,0 +1,141 @@
+% 									*** PREAMBULE DU DOCUMENT ***
+
+
+\documentclass[12pt]{report}			%	Type de doc (article,report,book), 11pt (par defaut)
+\usepackage[T1]{fontenc}				%	Eviter le probleme avec l'encodage UTF8
+\usepackage[utf8]{inputenc}				%	Encodage d'entrée latin1
+\usepackage[francais]{babel}			%	Package babel le plus utilisé
+\usepackage{graphicx}					%	Package pour insérer photos
+
+
+\setcounter{tocdepth}{5}				% 	Profondeur = nombre sous sections pour table des matières
+\usepackage{array,multirow,makecell} 	%	Creer des tableaux
+\setcellgapes{1pt}						%	Espace entre cellules
+\makegapedcells
+%	Creer des types de colonne
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\usepackage{titlesec}					%	Package pour customiser entete chapitre
+\setlength{\parindent}{0pt} 			%	Supprimer l'indentation automatique
+\titleformat{\chapter}[hang]{\bf\huge\center}{\thechapter}{2pc}{}	%	Supprimer "chapitre",centrer
+\renewcommand{\thepart}{\Roman{part}} 	% 	Part->(chapter,subsection,subsubsection);Roman->A(a)lpha/arabic
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}	% fixer les marges de son document
+
+\frenchbsetup{StandardLists=true} 		% 	Pour les listes si on utilise \usepackage[french]{babel}
+\usepackage{enumitem}					% 	Personaliser des listes
+\usepackage{amssymb} 					% 	Symboles mathematiques (puce carré)
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancypagestyle{plain}{%
+ 
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{machin}
+
+\fancyfoot[C]{\textbf{page \thepage}} 
+\fancyfoot[L]{truc}
+\fancyfoot[R]{\leftmark}
+
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+}
+
+
+
+
+\title{Un document LaTeX simple}
+\author{Sly}
+\date{\today} 
+
+
+
+%									*** CORPS DU DOCUMENT ***
+\begin{document}
+	\maketitle
+	\tableofcontents	% Table des matières
+	
+	% \textit(italic),\textsc(petites capitales),\texttt(machine à ecrire),\textsf(sans serif),\textsl(penché),\textrm(romain),\underline{mot}(souligne)/ \ul(souligne) \st(barre) avec package(soul), \fbox{mot} encardre mot
+	
+	\chapter{Mon premier chapitre}
+	Voici un peu de texte dans le premier chapitre de mon document. Pour le moment, mon document n'a pas énormément d'intérêt, si ce n'est de montrer comment il est possible de structurer simplement un document sous LaTeX !
+	\section{Une section}
+	Ceci est une première section, au sein du premier chapitre. Dans cette section nous allons insérer une image.
+	
+	\begin{figure} %insertion figure
+		\centering
+		\includegraphics[scale=0.5]{somme-picardie-photo.jpg} % Possible :[width=5cm,height=50mm]
+		\caption{Par Toutatis, une photo de la Somme par Pascal Lando}
+		\label{fig:toutatis}
+	\end{figure}
+	
+	\section{Une seconde section}
+	Ceci est une seconde section, au sein du premier chapitre.
+	
+	
+	
+	\chapter{Mon deuxième chapitre}
+	Voici un peu de texte dans le deuxième chapitre de mon document.
+	\section{Une section}
+	Ceci est une première section, au sein du deuxième chapitre.
+	
+	\begin{itemize}[label=$\square$,leftmargin=* ,parsep=0cm,itemsep=0cm,topsep=0cm]	% Listes avec puces carré
+		\item premier item;
+		\item deuxième item;
+		
+		\begin{enumerate}[label=\Alph*)]
+			\item premier sous-item
+			\item deuxième sous-item
+		\end{enumerate}
+		\item troisième item.
+		\begin{enumerate}[label=\arabic*),resume]
+			\item premier sous-item
+			\item deuxième sous-item
+		\end{enumerate}
+	\end{itemize}
+	\section{Une seconde section}
+	Ceci est une seconde section, au sein du deuxième chapitre.
+	\begin{enumerate}[label=\roman*)]
+			\item premier sous-item
+			\item deuxième sous-item
+		\end{enumerate}
+	
+	\chapter{Mon troisième chapitre}
+	Voici un peu de texte dans le deuxième chapitre de mon document.
+	\section{Une section}
+	Ceci est une première section, au sein du deuxième chapitre.
+	\section{Une seconde section}
+	Ceci est une seconde section, au sein du deuxième chapitre.
+	
+	%	Creation d'un tableau
+	\begin{table}
+\centering
+\begin{tabular}{|R{2cm}||C{1cm}|L{1.5cm}|L{1.5cm}|}
+\hline col 1 & col 2 &  col 3 &  col 4  \\
+\hline  ligne 2 & truc & bidule & machin  \\
+\hline 
+\end{tabular}
+\caption{Mon tableau}
+\label{tab1}
+\end{table}
+
+%								***	ANNEXE	***
+
+
+	\begin{thebibliography}{}	%  Bibliographie
+	
+		\bibitem[{ OBERLE et al. }{05}]{Oberle2004}
+  		D. Oberle, S. Lamparter, S. Grimm, D. Vrandecic, S. Staab, A. Gangemi,
+  		\newblock \textit{Towards Ontologies for Formalizing Modularization and Communication in Large Software Systems}, 
+ 		\newblock Journal of Applied Ontology, 2005.
+ 		
+ 	\end{thebibliography}
+  
+ 	\listoffigures	% Faire une table des figures
+	\listoftables
+	
+	
+\end{document}

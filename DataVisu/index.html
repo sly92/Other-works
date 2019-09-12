@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 15px sans-serif;
+}
+
+.name{
+  position: relative;
+  top: 90px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.title {
+  position: relative;
+  text-align: left;
+  font-size: 25px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #000;
+}
+
+
+#xAXs {
+  position: relative;
+  left: 290px;
+  bottom: 30px;
+}
+
+#yAXs {
+position: relative;
+bottom: 30px;
+left: 315px;
+
+}
+
+#label {
+position: absolute;
+top: 599px;
+bottom: 125px;
+left: 0px;
+right: 0px;
+}
+
+#label2 {
+position: absolute;
+top: 599px;
+bottom: 125px;
+left: 200px;
+right: 0px;
+}
+
+</style>
+
+<body>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+// Déclaration variable : axe, couleur, svg
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+  
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+
+var color = d3.scale.category10();
+
+var axisNames = { 
+                    petalWidth: 'Petal Width', 
+                    petalLength: 'Petal Length', 
+                    sepalWidth: 'Sepal Width', 
+                    sepalLength: 'Sepal Length' 
+                };
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Connexion BDD + attribution des données
+
+d3.csv("data.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.petalLength = +d.petalLength;
+    d.petalWidth = +d.petalWidth;
+    d.sepalLength = +d.sepalLength;
+    d.sepalWidth = +d.sepalWidth;
+  });
+       
+//Echelle du graph pour que le graph soit centrer la ou sont les points
+
+  x.domain(d3.extent(data, function(d) { return d.petalWidth; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.petalLength; })).nice();
+
+//Placement des axes
+       
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")") // Met l'axe des X en bas
+      .call(xAxis) //dessine l'axe
+    .append("text") // Placement du nom de l'axe sur l'axe
+      .attr("class", "label")
+      .attr("x", width)
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("Petal Width (cm)");
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis) //dessine l'axe
+    .append("text") // Placement du nom de l'axe sur l'axe
+      .attr("class", "label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Petal Length (cm)")
+
+ //Déclaration des points
+ 
+       var circles = svg.selectAll(".dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", function(d) { return x(d.petalWidth); })
+      .attr("cy", function(d) { return y(d.petalLength); })
+      .style("fill", function(d) { return color(d.species); });
+
+
+  d3.selectAll("[name=v]").on("change", function() {
+      var selected = this.value;
+      display = this.checked ? "inline" : "none";
+
+
+  svg.selectAll(".dot")
+      .attr("display", display);
+      });
+
+
+
+  d3.selectAll("[name=sepal]").on("change", function(d) {
+     radius = this.value;
+
+     svg.selectAll(".dot")
+     console.log(radius);
+     circles.attr("r", function(d) { return d[radius]; });
+  });
+
+
+
+  d3.select("[name=xAX]").on("change", function(){
+    xAxy = this.value;
+    console.log(xAxy)
+    x.domain(d3.extent(data, function(d) { return d[xAxy]; })).nice();
+
+    svg.select(".x.axis").transition().call(xAxis);
+
+    svg.selectAll(".dot").transition().attr("cx", function(d) { 
+        return x(d[xAxy]);
+    });
+    svg.selectAll(".x.axis").selectAll("text.label").text(axisNames[xAxy] + " (cm)");
+  });
+
+  d3.select("[name=yAX]").on("change", function(){
+    yAxy = this.value;
+    console.log(yAxy)
+    y.domain(d3.extent(data, function(d) { return d[yAxy]; })).nice();
+    svg.select(".y.axis").transition().call(yAxis);
+    svg.selectAll(".dot").transition().attr("cy", function(d) { 
+        return y(d[yAxy]);
+    });
+    svg.selectAll(".y.axis").selectAll("text.label").text(axisNames[yAxy] + " (cm)");
+  });
+
+});
+
+</script>
+<br><br>
+
+
+
+<div id="label">
+  <select name="xAX" id="xAXs">
+	<option selected disabled>Axe des X</option>
+        <option value ="petalWidth">petalWidth</option>
+        <option value ="petalLength">petalLength</option>
+        <option value ="sepalLength">sepalLength</option>
+        <option value ="sepalWidth">sepalWidth</option>
+  </select>
+</div>
+<div id="label2">
+  <select name="yAX" id="yAXs">
+		<option selected disabled>Axe des Y</option>
+        <option value ="petalLength">petalLength</option>
+        <option value ="petalWidth">petalWidth</option>
+        <option value ="sepalLength">sepalLength</option>
+        <option value ="sepalWidth">sepalWidth</option>
+  </select>  
+</div>
+  <br>
+</body>

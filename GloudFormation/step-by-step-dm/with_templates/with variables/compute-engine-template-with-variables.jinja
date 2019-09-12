@@ -1,0 +1,21 @@
+{% set  NETWORK_NAME = "once-upon-a-custom-network" %}
+
+resources:
+- name: the-first-vm
+  type: vm-template.jinja
+  properties:
+    machineType: f1-micro
+    zone: europe-west1-b
+    network: {{ NETWORK_NAME }}
+- name: the-second-vm
+  type: vm-template.jinja
+  properties:
+    machineType: g1-small
+    zone: europe-west1-b
+    network: {{ NETWORK_NAME }}
+- name: {{ NETWORK_NAME }}
+  type: network-template.jinja
+- name: {{ NETWORK_NAME }}-firewall
+  type: firewall-template.jinja
+  properties:
+    network: {{ NETWORK_NAME }}

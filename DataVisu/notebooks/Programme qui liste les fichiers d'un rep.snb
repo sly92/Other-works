@@ -1,0 +1,94 @@
+{
+  "metadata" : {
+    "name" : "Programme qui liste les fichiers d'un rep",
+    "user_save_timestamp" : "1970-01-01T01:00:00.000Z",
+    "auto_save_timestamp" : "1970-01-01T01:00:00.000Z",
+    "language_info" : {
+      "name" : "scala",
+      "file_extension" : "scala",
+      "codemirror_mode" : "text/x-scala"
+    },
+    "trusted" : true,
+    "customLocalRepo" : null,
+    "customRepos" : null,
+    "customDeps" : null,
+    "customImports" : null,
+    "customArgs" : null,
+    "customSparkConf" : null
+  },
+  "cells" : [ {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false,
+      "id" : "075B6BFBA4604F4D9781839F86F134E3"
+    },
+    "cell_type" : "code",
+    "source" : "import java.io.File",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "import java.io.File\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : ""
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 1
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false,
+      "id" : "36A3333FD7474947B73F575A7533B16D"
+    },
+    "cell_type" : "code",
+    "source" : "def getListOfFiles(dir: String):List[File] = {\n    val d = new File(dir)\n    if (d.exists && d.isDirectory) {\n        d.listFiles.filter(_.isFile).toList\n    } else {\n        List[File]()\n    }\n}",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "getListOfFiles: (dir: String)List[java.io.File]\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : ""
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 2
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false,
+      "id" : "979AE64F848448BE92DC11F80E444F96"
+    },
+    "cell_type" : "code",
+    "source" : "val files = getListOfFiles(\"C:/Users/Kevin/Downloads/iris_data_set/iris_data_set\")",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "files: List[java.io.File] = List(C:\\Users\\Kevin\\Downloads\\iris_data_set\\iris_data_set\\iris.csv, C:\\Users\\Kevin\\Downloads\\iris_data_set\\iris_data_set\\iris.txt, C:\\Users\\Kevin\\Downloads\\iris_data_set\\iris_data_set\\iris.xls, C:\\Users\\Kevin\\Downloads\\iris_data_set\\iris_data_set\\iris_source.txt)\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : ""
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 11
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : true,
+      "id" : "1FE966180E774507808CAD39B3ABF0AF"
+    },
+    "cell_type" : "code",
+    "source" : "",
+    "outputs" : [ ]
+  } ],
+  "nbformat" : 4
+}

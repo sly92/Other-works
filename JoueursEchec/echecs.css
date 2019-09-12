@@ -1,0 +1,107 @@
+body
+{
+	width : 90%;
+	background-color : #686887;
+	
+}
+
+header
+{
+	text-align : center;
+	color : #D2B5FF;
+}
+
+
+div.resultat
+{
+	width : 85%;
+	margin-left : 200px;
+	background-color : #C9C9D9;
+	border-radius : 10px;
+	padding : 30px;
+}
+
+
+div.filtre
+{
+	width : 85%;
+	margin-left : 200px;
+	background-color : #C9C9D9;
+	border-radius : 10px;
+	padding : 5px;
+	padding-left : 30px;
+	padding-right : 30px;
+	margin-bottom : 10px;
+}
+
+table
+{
+	border-collapse : collapse;
+	margin : auto;
+}
+
+th,td
+{
+	border : 1px solid black;
+	width : 150px;
+	height : 30px;
+	text-align : center;
+}
+.droite
+{
+text-align : right;
+}
+
+
+nav
+{
+	position : absolute;
+	top : 65px;
+	left : 0px;
+}
+
+
+
+nav li
+{
+	list-style-type : none;
+	padding : 0;
+	margin-bottom : 10px;
+}
+
+nav ul
+{
+	padding-left : 20px;
+}
+
+nav li a
+{
+	display : block;
+	margin : 0;
+	background-color : #C9C9D9;
+	border-radius : 10px;
+	padding-top : 20px;
+	padding-bottom : 20px;
+	padding-left : 10px;
+	padding-right : 10px;
+	vertical-align : middle;
+	text-align : center;
+	text-decoration : none;
+	color : #686887;
+	font-style : italic;
+}
+
+label
+{
+	display : block;
+	float : left ;
+	width : 150px;
+}
+
+.sansBordure
+{
+	border : 0px;
+	width : 30px;
+	padding-left : 0px;
+}
+
