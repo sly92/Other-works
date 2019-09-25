@@ -94,19 +94,6 @@ contains.name = paquet
 token = libelleKO[n]
 contains.setToken(token)
 contains.setIgnoreCase(true)
-/*def contains2 = it.addAssertion("Contains")
-contains2.name = "KO"
-token2 = "KO"
-contains2.setToken(token2)
-contains2.setIgnoreCase(true)
-def contains3 = it.addAssertion("Contains")
-contains3.name = "libelleKO"
-token3 = "libelleKO"
-contains3.setToken(token3)
-contains3.setIgnoreCase(true)
-*/
-
-//log.info "${text*5} n = ${n} ; libelleKO = ${libelleKO[n]}; defaut = ${defaut} "
 }
 //Passage à la ligne suivante dans le csv (cas de tests qui n'utilise pas une valeurs par defaut)
 if(!defaut)
